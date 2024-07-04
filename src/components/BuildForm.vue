@@ -11,15 +11,23 @@
           <input type="text" v-model="build.equipment.weapon" id="weapon" required>
         </div>
         <div>
+          <label for="weaponUpgrade">Weapon Upgrade Level:</label>
+          <input type="number" v-model="build.equipment.weaponUpgrade" id="weaponUpgrade" min="0" required>
+        </div>
+        <div>
           <label for="armor">Armor:</label>
           <input type="text" v-model="build.equipment.armor" id="armor" required>
         </div>
         <div>
-          <label for="talisman">Talisman:</label>
-          <input type="text" v-model="build.equipment.talisman" id="talisman" required>
+          <label for="talisman1">Talisman 1:</label>
+          <input type="text" v-model="build.equipment.talisman1" id="talisman1" required>
+        </div>
+        <div>
+          <label for="talisman2">Talisman 2:</label>
+          <input type="text" v-model="build.equipment.talisman2" id="talisman2" required>
         </div>
         <button type="submit">Calculate</button>
-        <button type="button" @click="saveCurrentBuild">Save Build</button>  <!-- Add this line -->
+        <button type="button" @click="saveCurrentBuild">Save Build</button>
       </form>
     </div>
   </template>
@@ -42,8 +50,10 @@
           },
           equipment: {
             weapon: '',
+            weaponUpgrade: 0,
             armor: '',
-            talisman: ''
+            talisman1: '',
+            talisman2: ''
           }
         }
       };
@@ -55,7 +65,7 @@
           this.$router.push('/build-stats');
         }
       },
-      saveCurrentBuild() {  // Add this method
+      saveCurrentBuild() {
         this.$store.dispatch('saveBuild', this.build);
         alert('Build saved successfully!');
       },

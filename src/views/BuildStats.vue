@@ -11,10 +11,13 @@
       <p>Faith: {{ build.stats.faith }}</p>
       <p>Arcane: {{ build.stats.arcane }}</p>
       <p>Weapon: {{ build.equipment.weapon }}</p>
+      <p>Weapon Upgrade Level: {{ build.equipment.weaponUpgrade }}</p>
       <p>Armor: {{ build.equipment.armor }}</p>
-      <p>Talisman: {{ build.equipment.talisman }}</p>
+      <p>Talisman 1: {{ build.equipment.talisman1 }}</p>
+      <p>Talisman 2: {{ build.equipment.talisman2 }}</p>
       <p>Attack Rating: {{ calculatedStats.attackRating }}</p>
       <p>Defense: {{ calculatedStats.defense }}</p>
+      <!-- Add more calculated stats as needed -->
     </div>
   </div>
 </template>
@@ -28,7 +31,7 @@ export default {
     ...mapState(['build']),
     calculatedStats() {
       // Basic calculation logic, you can expand this
-      const attackRating = this.build.stats.strength * 2 + this.build.stats.dexterity;
+      const attackRating = this.build.stats.strength * 2 + this.build.stats.dexterity + this.build.equipment.weaponUpgrade * 5;
       const defense = this.build.stats.endurance * 1.5 + this.build.stats.vigor;
       return {
         attackRating,
