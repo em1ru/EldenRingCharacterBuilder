@@ -1,6 +1,6 @@
 // src/store/index.js
 import { createStore } from 'vuex';
-import { fetchWeapons, fetchArmors, fetchTalismans } from '../services/erdbService';
+import { fetchWeapons, fetchArmors, fetchTalismans, fetchShields } from '../services/erdbService';
 
 export default createStore({
   state: {
@@ -19,6 +19,10 @@ export default createStore({
         weapon: '',
         weaponUpgrade: 0,
         armor: '',
+        helmet: '',
+        gauntlets: '',
+        greaves: '',
+        shield: '',
         talisman1: '',
         talisman2: ''
       }
@@ -26,6 +30,10 @@ export default createStore({
     savedBuilds: [],
     weapons: [],
     armors: [],
+    helmets: [],
+    gauntlets: [],
+    greaves: [],
+    shields: [],
     talismans: []
   },
   mutations: {
@@ -49,6 +57,13 @@ export default createStore({
     setArmors(state, armors) {
       console.log('Setting armors in state:', armors);
       state.armors = armors;
+      state.helmets = armors.filter(armor => armor.category === 'Helm');
+      state.gauntlets = armors.filter(armor => armor.category === 'Gauntlets');
+      state.greaves = armors.filter(armor => armor.category === 'Leg Armor');
+    },
+    setShields(state, shields) {
+      console.log('Setting shields in state:', shields);
+      state.shields = shields;
     },
     setTalismans(state, talismans) {
       console.log('Setting talismans in state:', talismans);
@@ -81,6 +96,14 @@ export default createStore({
         console.error('Failed to fetch armors:', error);
       }
     },
+    async fetchShields({ commit }) {
+      try {
+        const shields = await fetchShields();
+        commit('setShields', shields);
+      } catch (error) {
+        console.error('Failed to fetch shields:', error);
+      }
+    },
     async fetchTalismans({ commit }) {
       try {
         const talismans = await fetchTalismans();
@@ -102,6 +125,18 @@ export default createStore({
     },
     getArmors(state) {
       return state.armors;
+    },
+    getHelmets(state) {
+      return state.helmets;
+    },
+    getGauntlets(state) {
+      return state.gauntlets;
+    },
+    getGreaves(state) {
+      return state.greaves;
+    },
+    getShields(state) {
+      return state.shields;
     },
     getTalismans(state) {
       return state.talismans;

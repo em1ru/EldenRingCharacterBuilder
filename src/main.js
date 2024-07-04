@@ -12,6 +12,7 @@ app.use(store);
 store.dispatch('loadBuilds'); // Load saved builds
 store.dispatch('fetchWeapons'); // Fetch weapons data
 store.dispatch('fetchArmors'); // Fetch armors data
+store.dispatch('fetchShields'); // Fetch shields data
 store.dispatch('fetchTalismans'); // Fetch talismans data
 
 app.mount('#app');

@@ -35,6 +35,18 @@ export async function fetchArmors() {
   return armors;
 }
 
+export async function fetchShields() {
+  const shields = await fetchAllItems('shields');
+  console.log('Fetched shields data structure:', shields);
+  return shields;
+}
+
+export async function fetchHelmets() {
+  const helmets = await fetchAllItems('helmets');
+  console.log('Fetched helmets data structure:', helmets);
+  return helmets;
+}
+
 export async function fetchTalismans() {
   const talismans = await fetchAllItems('talismans');
   console.log('Fetched talismans data structure:', talismans);
