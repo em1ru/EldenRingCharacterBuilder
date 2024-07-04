@@ -3,6 +3,7 @@
       <ul>
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/build">Build Planner</router-link></li>
+        <li><router-link to="/saved-builds">Saved Builds</router-link></li>  <!-- Add this line -->
       </ul>
     </nav>
   </template>
