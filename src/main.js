@@ -9,6 +9,9 @@ const app = createApp(App);
 app.use(router);
 app.use(store);
 
-store.dispatch('loadBuilds');  // Add this line
+store.dispatch('loadBuilds'); // Load saved builds
+store.dispatch('fetchWeapons'); // Fetch weapons data
+store.dispatch('fetchArmors'); // Fetch armors data
+store.dispatch('fetchTalismans'); // Fetch talismans data
 
 app.mount('#app');

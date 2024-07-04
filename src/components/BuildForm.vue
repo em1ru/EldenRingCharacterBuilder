@@ -6,25 +6,20 @@
           <label :for="key">{{ key.charAt(0).toUpperCase() + key.slice(1) }}:</label>
           <input type="number" v-model="build.stats[key]" :id="key" min="0" required>
         </div>
-        <div>
-          <label for="weapon">Weapon:</label>
-          <input type="text" v-model="build.equipment.weapon" id="weapon" required>
-        </div>
+        <WeaponSelector />
+        <ArmorSelector />
+        <TalismanSelector />
         <div>
           <label for="weaponUpgrade">Weapon Upgrade Level:</label>
           <input type="number" v-model="build.equipment.weaponUpgrade" id="weaponUpgrade" min="0" required>
         </div>
         <div>
-          <label for="armor">Armor:</label>
-          <input type="text" v-model="build.equipment.armor" id="armor" required>
-        </div>
-        <div>
           <label for="talisman1">Talisman 1:</label>
-          <input type="text" v-model="build.equipment.talisman1" id="talisman1" required>
+          <TalismanSelector v-model="build.equipment.talisman1" />
         </div>
         <div>
           <label for="talisman2">Talisman 2:</label>
-          <input type="text" v-model="build.equipment.talisman2" id="talisman2" required>
+          <TalismanSelector v-model="build.equipment.talisman2" />
         </div>
         <button type="submit">Calculate</button>
         <button type="button" @click="saveCurrentBuild">Save Build</button>
@@ -33,8 +28,17 @@
   </template>
   
   <script>
+  import WeaponSelector from '../components/WeaponSelector.vue';
+  import ArmorSelector from '../components/ArmorSelector.vue';
+  import TalismanSelector from '../components/TalismanSelector.vue';
+  
   export default {
     name: 'BuildForm',
+    components: {
+      WeaponSelector,
+      ArmorSelector,
+      TalismanSelector
+    },
     data() {
       return {
         build: {
@@ -79,7 +83,7 @@
         return true;
       }
     }
-  }
+  };
   </script>
   
   <style scoped>
