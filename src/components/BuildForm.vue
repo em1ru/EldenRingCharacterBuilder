@@ -19,6 +19,7 @@
           <input type="text" v-model="build.equipment.talisman" id="talisman" required>
         </div>
         <button type="submit">Calculate</button>
+        <button type="button" @click="saveCurrentBuild">Save Build</button>  <!-- Add this line -->
       </form>
     </div>
   </template>
@@ -53,6 +54,10 @@
           this.$store.dispatch('updateBuild', this.build);
           this.$router.push('/build-stats');
         }
+      },
+      saveCurrentBuild() {  // Add this method
+        this.$store.dispatch('saveBuild', this.build);
+        alert('Build saved successfully!');
       },
       validateForm() {
         for (let stat in this.build.stats) {
