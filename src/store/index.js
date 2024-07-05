@@ -17,22 +17,24 @@ export default createStore({
       },
       equipment: {
         weapon: '',
-        weaponUpgrade: 0,
-        armor: '',
-        helmet: '',
-        gauntlets: '',
-        greaves: '',
+        head: '',
+        body: '',
+        arms: '',
+        legs: '',
         shield: '',
         talisman1: '',
-        talisman2: ''
+        talisman2: '',
+        talisman3: '',
+        talisman4: ''
       }
     },
     savedBuilds: [],
     weapons: [],
     armors: [],
-    helmets: [],
-    gauntlets: [],
-    greaves: [],
+    head: [],
+    body: [],
+    arms: [],
+    legs: [],
     shields: [],
     talismans: []
   },
@@ -57,9 +59,10 @@ export default createStore({
     setArmors(state, armors) {
       console.log('Setting armors in state:', armors);
       state.armors = armors;
-      state.helmets = armors.filter(armor => armor.category === 'Helm');
-      state.gauntlets = armors.filter(armor => armor.category === 'Gauntlets');
-      state.greaves = armors.filter(armor => armor.category === 'Leg Armor');
+      state.head = armors.filter(armor => armor.category === 'Helm');
+      state.body = armors.filter(armor => armor.category === 'Chest Armor');
+      state.arms = armors.filter(armor => armor.category === 'Gauntlets');
+      state.legs = armors.filter(armor => armor.category === 'Leg Armor');
     },
     setShields(state, shields) {
       console.log('Setting shields in state:', shields);
@@ -123,17 +126,17 @@ export default createStore({
     getWeapons(state) {
       return state.weapons;
     },
-    getArmors(state) {
-      return state.armors;
+    getHead(state) {
+      return state.head;
     },
-    getHelmets(state) {
-      return state.helmets;
+    getBody(state) {
+      return state.body;
     },
-    getGauntlets(state) {
-      return state.gauntlets;
+    getArms(state) {
+      return state.arms;
     },
-    getGreaves(state) {
-      return state.greaves;
+    getLegs(state) {
+      return state.legs;
     },
     getShields(state) {
       return state.shields;

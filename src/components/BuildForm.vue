@@ -7,28 +7,35 @@
         <input type="number" v-model="build.stats[key]" :id="key" min="0" required>
       </div>
       <WeaponSelector />
-      <ArmorSelector />
       <div>
-        <label for="helmet">Helmet:</label>
-        <select v-model="build.equipment.helmet" @change="updateHelmet">
-          <option v-for="helmet in helmets" :key="helmet.id" :value="helmet.name">
-            {{ helmet.name }}
+        <label for="head">Head:</label>
+        <select v-model="build.equipment.head" @change="updateHead">
+          <option v-for="head in head" :key="head.id" :value="head.name">
+            {{ head.name }}
           </option>
         </select>
       </div>
       <div>
-        <label for="gauntlets">Gauntlets:</label>
-        <select v-model="build.equipment.gauntlets" @change="updateGauntlets">
-          <option v-for="gauntlets in gauntlets" :key="gauntlets.id" :value="gauntlets.name">
-            {{ gauntlets.name }}
+        <label for="body">Body:</label>
+        <select v-model="build.equipment.body" @change="updateBody">
+          <option v-for="body in body" :key="body.id" :value="body.name">
+            {{ body.name }}
           </option>
         </select>
       </div>
       <div>
-        <label for="greaves">Greaves:</label>
-        <select v-model="build.equipment.greaves" @change="updateGreaves">
-          <option v-for="greaves in greaves" :key="greaves.id" :value="greaves.name">
-            {{ greaves.name }}
+        <label for="arms">Arms:</label>
+        <select v-model="build.equipment.arms" @change="updateArms">
+          <option v-for="arms in arms" :key="arms.id" :value="arms.name">
+            {{ arms.name }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label for="legs">Legs:</label>
+        <select v-model="build.equipment.legs" @change="updateLegs">
+          <option v-for="legs in legs" :key="legs.id" :value="legs.name">
+            {{ legs.name }}
           </option>
         </select>
       </div>
@@ -49,8 +56,12 @@
         <TalismanSelector v-model="build.equipment.talisman2" />
       </div>
       <div>
-        <label for="weaponUpgrade">Weapon Upgrade Level:</label>
-        <input type="number" v-model="build.equipment.weaponUpgrade" id="weaponUpgrade" min="0" required>
+        <label for="talisman3">Talisman 3:</label>
+        <TalismanSelector v-model="build.equipment.talisman3" />
+      </div>
+      <div>
+        <label for="talisman4">Talisman 4:</label>
+        <TalismanSelector v-model="build.equipment.talisman4" />
       </div>
       <button type="submit">Calculate</button>
       <button type="button" @click="saveCurrentBuild">Save Build</button>
@@ -66,40 +77,40 @@
         <li v-for="(stat, index) in selectedWeapon.attack" :key="index">{{ stat.name }}: {{ stat.amount }}</li>
       </ul>
     </div>
-    <div v-if="build.equipment.armor">
-      <h3>Selected Armor</h3>
-      <p>{{ selectedArmor.name }}</p>
-      <img :src="selectedArmor.image" alt="Armor Image" />
-      <p>{{ selectedArmor.description }}</p>
+    <div v-if="build.equipment.head">
+      <h3>Selected Head</h3>
+      <p>{{ selectedHead.name }}</p>
+      <img :src="selectedHead.image" alt="Head Image" />
+      <p>{{ selectedHead.description }}</p>
       <ul>
-        <li v-for="(stat, index) in selectedArmor.dmgNegation" :key="index">{{ stat.name }}: {{ stat.amount }}</li>
+        <li v-for="(stat, index) in selectedHead.dmgNegation" :key="index">{{ stat.name }}: {{ stat.amount }}</li>
       </ul>
     </div>
-    <div v-if="build.equipment.helmet">
-      <h3>Selected Helmet</h3>
-      <p>{{ selectedHelmet.name }}</p>
-      <img :src="selectedHelmet.image" alt="Helmet Image" />
-      <p>{{ selectedHelmet.description }}</p>
+    <div v-if="build.equipment.body">
+      <h3>Selected Body</h3>
+      <p>{{ selectedBody.name }}</p>
+      <img :src="selectedBody.image" alt="Body Image" />
+      <p>{{ selectedBody.description }}</p>
       <ul>
-        <li v-for="(stat, index) in selectedHelmet.dmgNegation" :key="index">{{ stat.name }}: {{ stat.amount }}</li>
+        <li v-for="(stat, index) in selectedBody.dmgNegation" :key="index">{{ stat.name }}: {{ stat.amount }}</li>
       </ul>
     </div>
-    <div v-if="build.equipment.gauntlets">
-      <h3>Selected Gauntlets</h3>
-      <p>{{ selectedGauntlets.name }}</p>
-      <img :src="selectedGauntlets.image" alt="Gauntlets Image" />
-      <p>{{ selectedGauntlets.description }}</p>
+    <div v-if="build.equipment.arms">
+      <h3>Selected Arms</h3>
+      <p>{{ selectedArms.name }}</p>
+      <img :src="selectedArms.image" alt="Arms Image" />
+      <p>{{ selectedArms.description }}</p>
       <ul>
-        <li v-for="(stat, index) in selectedGauntlets.dmgNegation" :key="index">{{ stat.name }}: {{ stat.amount }}</li>
+        <li v-for="(stat, index) in selectedArms.dmgNegation" :key="index">{{ stat.name }}: {{ stat.amount }}</li>
       </ul>
     </div>
-    <div v-if="build.equipment.greaves">
-      <h3>Selected Greaves</h3>
-      <p>{{ selectedGreaves.name }}</p>
-      <img :src="selectedGreaves.image" alt="Greaves Image" />
-      <p>{{ selectedGreaves.description }}</p>
+    <div v-if="build.equipment.legs">
+      <h3>Selected Legs</h3>
+      <p>{{ selectedLegs.name }}</p>
+      <img :src="selectedLegs.image" alt="Legs Image" />
+      <p>{{ selectedLegs.description }}</p>
       <ul>
-        <li v-for="(stat, index) in selectedGreaves.dmgNegation" :key="index">{{ stat.name }}: {{ stat.amount }}</li>
+        <li v-for="(stat, index) in selectedLegs.dmgNegation" :key="index">{{ stat.name }}: {{ stat.amount }}</li>
       </ul>
     </div>
     <div v-if="build.equipment.shield">
@@ -125,12 +136,25 @@
       <p>{{ selectedTalisman2.description }}</p>
       <p>{{ selectedTalisman2.effect }}</p>
     </div>
+    <div v-if="build.equipment.talisman3">
+      <h3>Selected Talisman 3</h3>
+      <p>{{ selectedTalisman3.name }}</p>
+      <img :src="selectedTalisman3.image" alt="Talisman Image" />
+      <p>{{ selectedTalisman3.description }}</p>
+      <p>{{ selectedTalisman3.effect }}</p>
+    </div>
+    <div v-if="build.equipment.talisman4">
+      <h3>Selected Talisman 4</h3>
+      <p>{{ selectedTalisman4.name }}</p>
+      <img :src="selectedTalisman4.image" alt="Talisman Image" />
+      <p>{{ selectedTalisman4.description }}</p>
+      <p>{{ selectedTalisman4.effect }}</p>
+    </div>
   </div>
 </template>
 
 <script>
 import WeaponSelector from '../components/WeaponSelector.vue';
-import ArmorSelector from '../components/ArmorSelector.vue';
 import TalismanSelector from '../components/TalismanSelector.vue';
 import { mapState } from 'vuex';
 
@@ -138,7 +162,6 @@ export default {
   name: 'BuildForm',
   components: {
     WeaponSelector,
-    ArmorSelector,
     TalismanSelector
   },
   data() {
@@ -156,34 +179,35 @@ export default {
         },
         equipment: {
           weapon: '',
-          weaponUpgrade: 0,
-          armor: '',
-          helmet: '',
-          gauntlets: '',
-          greaves: '',
+          head: '',
+          body: '',
+          arms: '',
+          legs: '',
           shield: '',
           talisman1: '',
-          talisman2: ''
+          talisman2: '',
+          talisman3: '',
+          talisman4: ''
         }
       }
     };
   },
   computed: {
-    ...mapState(['weapons', 'armors', 'helmets', 'gauntlets', 'greaves', 'shields', 'talismans']),
+    ...mapState(['weapons', 'head', 'body', 'arms', 'legs', 'shields', 'talismans']),
     selectedWeapon() {
       return this.weapons.find(weapon => weapon.name === this.build.equipment.weapon) || {};
     },
-    selectedArmor() {
-      return this.armors.find(armor => armor.name === this.build.equipment.armor) || {};
+    selectedHead() {
+      return this.head.find(head => head.name === this.build.equipment.head) || {};
     },
-    selectedHelmet() {
-      return this.helmets.find(helmet => helmet.name === this.build.equipment.helmet) || {};
+    selectedBody() {
+      return this.body.find(body => body.name === this.build.equipment.body) || {};
     },
-    selectedGauntlets() {
-      return this.gauntlets.find(gauntlets => gauntlets.name === this.build.equipment.gauntlets) || {};
+    selectedArms() {
+      return this.arms.find(arms => arms.name === this.build.equipment.arms) || {};
     },
-    selectedGreaves() {
-      return this.greaves.find(greaves => greaves.name === this.build.equipment.greaves) || {};
+    selectedLegs() {
+      return this.legs.find(legs => legs.name === this.build.equipment.legs) || {};
     },
     selectedShield() {
       return this.shields.find(shield => shield.name === this.build.equipment.shield) || {};
@@ -193,6 +217,12 @@ export default {
     },
     selectedTalisman2() {
       return this.talismans.find(talisman => talisman.name === this.build.equipment.talisman2) || {};
+    },
+    selectedTalisman3() {
+      return this.talismans.find(talisman => talisman.name === this.build.equipment.talisman3) || {};
+    },
+    selectedTalisman4() {
+      return this.talismans.find(talisman => talisman.name === this.build.equipment.talisman4) || {};
     }
   },
   methods: {
@@ -203,7 +233,9 @@ export default {
       }
     },
     saveCurrentBuild() {
-      this.$store.dispatch('saveBuild', this.build);
+      const builds = JSON.parse(localStorage.getItem('savedBuilds')) || [];
+      builds.push(this.build);
+      localStorage.setItem('savedBuilds', JSON.stringify(builds));
       alert('Build saved successfully!');
     },
     validateForm() {
@@ -215,14 +247,17 @@ export default {
       }
       return true;
     },
-    updateHelmet(event) {
-      this.build.equipment.helmet = event.target.value;
+    updateHead(event) {
+      this.build.equipment.head = event.target.value;
     },
-    updateGauntlets(event) {
-      this.build.equipment.gauntlets = event.target.value;
+    updateBody(event) {
+      this.build.equipment.body = event.target.value;
     },
-    updateGreaves(event) {
-      this.build.equipment.greaves = event.target.value;
+    updateArms(event) {
+      this.build.equipment.arms = event.target.value;
+    },
+    updateLegs(event) {
+      this.build.equipment.legs = event.target.value;
     },
     updateShield(event) {
       this.build.equipment.shield = event.target.value;
